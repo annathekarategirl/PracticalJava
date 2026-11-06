@@ -48,9 +48,33 @@ class EvilCorporation{
 
 }
 class Store extends EvilCorporation{
+    int id=0;
     private String name="";
-    private ArrayList
+    private ArrayList<Item> inventory=new ArrayList<>();
+    private ArrayList<Employee> employees=new ArrayList<>();
+    double moneyEarned= 0;
+
+    Store(){}
+    Store(int id,String name, ArrayList<Item> inventory,ArrayList<Employee> employees,double moneyEarned){
+        this.id=id;
+        this.name=name;
+        this.inventory=inventory;
+        this.employees=employees;
+        this.moneyEarned=moneyEarned;
+    }
+    
 }
+
+//Genesis
 class Person{
     Person(){}
+}
+
+//Genesis
+class Employee extends Person{
+    Employee(){}
+}
+
+class Item{
+    Item(){}
 }
