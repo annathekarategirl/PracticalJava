@@ -42,6 +42,10 @@ class EvilCorporation{
     public void setName(String name){
         this.name=name;
     }
+    /**
+     * Adds money 
+     * @param amount the amount added
+     */
     public void earnMoreMoney(double amount){
         this.moneyEarned=(this.moneyEarned+amount);
     }
@@ -61,6 +65,25 @@ class Store extends EvilCorporation{
         this.inventory=inventory;
         this.employees=employees;
         this.moneyEarned=moneyEarned;
+    }
+    /**
+     * Getters and setters
+     * @return
+     */
+    public ArrayList<Item> getInventory(){
+        return this.inventory;
+    }
+    public ArrayList<Employee> getEmployees(){
+        return this.employees;
+    }
+    public int getId(){
+        return this.id;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public double getMoneyEarned(){
+        return this.moneyEarned;
     }
     
 }
