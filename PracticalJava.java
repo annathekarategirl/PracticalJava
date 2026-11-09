@@ -131,13 +131,100 @@ class Store extends EvilCorporation{
 
 //Genesis
 class Person{
+    private String name="YN";
     Person(){}
+    Person(String name){
+        this.name=name;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name=name;
+    }
+    //MY Account placeholder
+   
+   
 }
+
 
 //Genesis
 class Employee extends Person{
-    Employee(){}
+    //private String name=this.name;
+    private int id;
+    private double happyMultiplier;
+    private Store store_obj= new Store();
+   
+    Employee(){
+        super();
+    }
+    Employee(String name, int id, double happyMultiplier, Store store_obj){
+        super(name);
+        this.id=id;
+        this.happyMultiplier=happyMultiplier;
+        this.store_obj=store_obj;
+    }
+    public int getId(){
+        return this.id;
+    }
+    public void setId(int id){
+        this.id=id;
+    }
+    public Store getStore(){
+        return this.store_obj;
+    }
+    public void setStore(Store store_obj){
+        this.store_obj=store_obj;
+    }
+    public double getMultiplier(){
+        return this.happyMultiplier;
+    }
+    public void setMultiplier(double happyMultiplier){
+        this.happyMultiplier=happyMultiplier;
+    }
+    public void dialogue(){
+        //placeholder
+    }
 }
+class Customer extends Person{
+    private double balance = 1000;
+    private ArrayList<Item> items= new ArrayList<>();
+    //private String name
+    Customer(){
+        super();
+    }
+    Customer( String name, double balance, ArrayList<Item> items){
+        super(name);
+        this.balance=balance;
+        this.items=items;
+    }
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return super.getName();
+    }
+    public double getBalance() {
+        return balance;
+    }
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+    @Override
+    public void setName(String name) {
+        // TODO Auto-generated method stub
+        super.setName(name);
+    }
+    public  void withdraw(double amount){
+        this.balance-=amount;
+    }
+    public void deposit(double amount){
+        this.balance+=amount;
+    }
+    public  void addItem(Item item){
+        this.items.add(item);
+    }
+}
+
 //Anna
 class Item{
     int id=0;
