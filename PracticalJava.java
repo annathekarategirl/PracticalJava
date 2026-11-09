@@ -8,6 +8,7 @@ public class PracticalJava{
         Store store=new Store();
         store.earnMoreMoney(100);
         System.out.print(store.getMoneyEarned()+"\n"+store.bigCorpo.getMoneyEarned()+"\n"+store.getName());
+        
     }
 }
 class EvilCorporation{
@@ -86,7 +87,7 @@ class Store extends EvilCorporation{
         return this.id;
     }
     public String getName(){
-        return super.getName();
+        return this.name;
     }
     public double getMoneyEarned(){
         return this.moneyEarned;
@@ -105,6 +106,12 @@ class Store extends EvilCorporation{
     public void earnMoreMoney(double amount){
         bigCorpo.earnMoreMoney(amount);
         this.moneyEarned+=amount;
+    }
+    public void addInventory(Item item){
+        this.inventory.add(item);
+    }
+    public void removeInventory(Item item){
+        this.inventory.remove(item);
     }
 }
 
