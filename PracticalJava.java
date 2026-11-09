@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 public class PracticalJava{
     public static void main(String[] args){
-        
+        Store store=new Store();
+        store.earnMoreMoney(100);
+        System.out.print(store.getMoneyEarned()+"\n"+store.bigCorpo.getMoneyEarned());
     }
 }
 class EvilCorporation{
@@ -27,7 +29,7 @@ class EvilCorporation{
     public Person getBillionaire(){
         return this.billionaire;
     }
-    public double getMoney(){
+    public double getMoneyEarned(){
         return this.moneyEarned;
     }
     public String getName(){
@@ -60,12 +62,13 @@ class Store extends EvilCorporation{
     EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
 
     Store(){}
-    Store(int id,String name, ArrayList<Item> inventory,ArrayList<Employee> employees,double moneyEarned){
+    Store(int id,String name, ArrayList<Item> inventory,ArrayList<Employee> employees,double moneyEarned, EvilCorporation bigCorpo){
         this.id=id;
         this.name=name;
         this.inventory=inventory;
         this.employees=employees;
         this.moneyEarned=moneyEarned;
+        this.bigCorpo=bigCorpo;
     }
     /**
      * Getters and setters
