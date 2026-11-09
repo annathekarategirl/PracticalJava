@@ -11,6 +11,7 @@ public class PracticalJava{
         
     }
 }
+//Anna
 class EvilCorporation{
     private String name="";
     private Person billionaire=new Person();
@@ -54,6 +55,7 @@ class EvilCorporation{
     }
 
 }
+//Anna
 class Store extends EvilCorporation{
     int id=0;
     //private String name="STORE";
