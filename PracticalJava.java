@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class PracticalJava{
     public static void main(String[] args){
-        EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
+        
     }
 }
 class EvilCorporation{
@@ -57,6 +57,7 @@ class Store extends EvilCorporation{
     private ArrayList<Item> inventory=new ArrayList<>();
     private ArrayList<Employee> employees=new ArrayList<>();
     double moneyEarned= 0;
+    EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
 
     Store(){}
     Store(int id,String name, ArrayList<Item> inventory,ArrayList<Employee> employees,double moneyEarned){
@@ -97,7 +98,8 @@ class Store extends EvilCorporation{
     }
     @Override 
     public void earnMoreMoney(double amount){
-
+        bigCorpo.earnMoreMoney(amount);
+        this.moneyEarned+=amount;
     }
 }
 
