@@ -113,6 +113,9 @@ class Store extends EvilCorporation{
     public void removeInventory(Item item){
         this.inventory.remove(item);
     }
+    public void addEmployee(Employee emp){
+        this.employees.add(emp);
+    }
 }
 
 //Genesis
