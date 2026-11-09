@@ -7,7 +7,7 @@ public class PracticalJava{
     public static void main(String[] args){
         Store store=new Store();
         store.earnMoreMoney(100);
-        System.out.print(store.getMoneyEarned()+"\n"+store.bigCorpo.getMoneyEarned());
+        System.out.print(store.getMoneyEarned()+"\n"+store.bigCorpo.getMoneyEarned()+"\n"+store.getName());
     }
 }
 class EvilCorporation{
@@ -55,13 +55,15 @@ class EvilCorporation{
 }
 class Store extends EvilCorporation{
     int id=0;
-    private String name="";
+    private String name="STORE";
     private ArrayList<Item> inventory=new ArrayList<>();
     private ArrayList<Employee> employees=new ArrayList<>();
     double moneyEarned= 0;
     EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
 
-    Store(){}
+    Store(){
+        
+    }
     Store(int id,String name, ArrayList<Item> inventory,ArrayList<Employee> employees,double moneyEarned, EvilCorporation bigCorpo){
         this.id=id;
         this.name=name;
@@ -84,7 +86,7 @@ class Store extends EvilCorporation{
         return this.id;
     }
     public String getName(){
-        return this.name;
+        return super.getName();
     }
     public double getMoneyEarned(){
         return this.moneyEarned;
