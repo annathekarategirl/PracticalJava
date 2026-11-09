@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class PracticalJava{
     public static void main(String[] args){
-
+        EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
     }
 }
 class EvilCorporation{
@@ -86,6 +86,19 @@ class Store extends EvilCorporation{
         return this.moneyEarned;
     }
     
+    public void setName(String name){
+        this.name=name;
+    }
+    public void setMoney(double bal){
+        this.moneyEarned=bal;
+    }
+    public void setInventory(ArrayList<Item> list){
+
+    }
+    @Override 
+    public void earnMoreMoney(double amount){
+
+    }
 }
 
 //Genesis
