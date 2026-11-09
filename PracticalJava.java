@@ -56,22 +56,28 @@ class EvilCorporation{
 }
 class Store extends EvilCorporation{
     int id=0;
-    private String name="STORE";
+    //private String name="STORE";
     private ArrayList<Item> inventory=new ArrayList<>();
     private ArrayList<Employee> employees=new ArrayList<>();
-    double moneyEarned= 0;
+    //double moneyEarned= 0;
     EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
 
     Store(){
         
     }
-    Store(int id,String name, ArrayList<Item> inventory,ArrayList<Employee> employees,double moneyEarned, EvilCorporation bigCorpo){
+    //*
+    // Chatgpt
+    // Asked how to fix super
+    // Was getting error on super
+    // I was told to get rid of repeated variables and change getters to return super.get___ */
+    Store(String name, Person billionare, double moneyEarned,EvilCorporation bigCorpo,int id, ArrayList<Item> inventory,ArrayList<Employee> employees){
+        super(name,billionare, moneyEarned);
         this.id=id;
-        this.name=name;
+        //this.name=name;
         this.inventory=inventory;
         this.employees=employees;
-        this.moneyEarned=moneyEarned;
-        this.bigCorpo=bigCorpo;
+        //this.moneyEarned=moneyEarned;
+        //this.bigCorpo=bigCorpo;
     }
     /**
      * Getters and setters
@@ -87,17 +93,17 @@ class Store extends EvilCorporation{
         return this.id;
     }
     public String getName(){
-        return this.name;
+        return super.getName();
     }
     public double getMoneyEarned(){
-        return this.moneyEarned;
+        return super.getMoneyEarned();
     }
     
     public void setName(String name){
-        this.name=name;
+        this.setName(name);
     }
     public void setMoney(double bal){
-        this.moneyEarned=bal;
+        super.setMoney(bal);
     }
     public void setInventory(ArrayList<Item> list){
 
@@ -105,7 +111,7 @@ class Store extends EvilCorporation{
     @Override 
     public void earnMoreMoney(double amount){
         bigCorpo.earnMoreMoney(amount);
-        this.moneyEarned+=amount;
+        super.earnMoreMoney(amount);
     }
     public void addInventory(Item item){
         this.inventory.add(item);
