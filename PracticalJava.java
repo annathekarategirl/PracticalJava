@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
-
+//maybe get rid of store id or make it the same as the index? nah
 public class PracticalJava{
     public static void main(String[] args){
         /*Initialize variables
         */
         EvilCorporation ParkWest= new EvilCorporation("ParkWest", new Person("Alan Resnick"),1000,new ArrayList<Store>());
-        Store pennStation=new Store("ParkWest", new Person("Alana Resnick"),0,new ArrayList<Store>(),ParkWest,1, new ArrayList<Item>(),new ArrayList<Employee>());
+        Store pennStation=new Store("Penn Station", new Person("Alana Resnick"),0,new ArrayList<Store>(),ParkWest,1, new ArrayList<Item>(),new ArrayList<Employee>());
         Store ross=new Store("Ross", new Person("Silly Billy"),0,new ArrayList<Store>(),ParkWest,2, new ArrayList<Item>(),new ArrayList<Employee>());
         Store target=new Store("Target", new Person("Target Dog"),0,new ArrayList<Store>(),ParkWest,3, new ArrayList<Item>(),new ArrayList<Employee>());
         Item sandwich=new Item(1, 9, "Sandwich");
@@ -29,17 +29,25 @@ public class PracticalJava{
         Employee joe= new Employee("Joe", 2, 1.3, pennStation);
         pennStation.addEmployee(joe);
         Employee girlypop = new Employee("Girlypop",3,2.0,ross);
+        ross.addEmployee(girlypop);
         Boolean shopping=false;
-
+        ParkWest.addStore(target);
+        ParkWest.addStore(ross);
+        ParkWest.addStore(pennStation);
+        Scanner scanner=new Scanner(System.in);
 
 
        /*
        Shopping sim */
        do{
         try{
-
-
-                
+            ParkWest.printStores();
+            System.out.print("Type the number of store to go in: ");
+            int currentStoreId=scanner.nextInt();
+            Store currentStore= ParkWest.getStores().get(currentStoreId);
+            System.out.println("Welcome to "+currentStore.getName());
+            System.out.println("What will you buy?");
+            currentStore.printInventory();
             
         }catch(IndexOutOfBoundsException ex){
             System.out.print(ex);
@@ -59,6 +67,7 @@ class EvilCorporation{
     private Person billionaire=new Person();
     private double moneyEarned=0;
     private ArrayList<Store> stores=new ArrayList<>();
+    public Scanner input=new Scanner(System.in);
     EvilCorporation(){}
     EvilCorporation(String name, Person billionaire, double moneyEarned, ArrayList<Store> stores){
         this.name=name; //name of company
@@ -80,6 +89,9 @@ class EvilCorporation{
     public String getName(){
         return this.name;
     }
+    public ArrayList<Store> getStores(){
+        return this.stores;
+    }
     public void setBillionaire(Person bill){
         this.billionaire=bill;
     }
@@ -99,6 +111,28 @@ class EvilCorporation{
     public void addStore(Store store){
         this.stores.add(store);
     }
+    public void printStores(){
+        for (int i=0;i<stores.size();i++){
+            System.out.print(i+" ");
+            System.out.println(stores.get(i).getName());
+        }
+    }
+    /*public Store selectStore(){
+        for (int i=0;i<stores.size();i++){
+            System.out.print(stores.get(i).getId()+" ");
+            System.out.println(stores.get(i).getName());
+        }
+        System.out.print("Type the number of store to go in: ");
+        int currentStoreId=input.nextInt();
+        for (int i=0;i<stores.size();i++){
+            if(currentStoreId==stores.get(i).getId()){
+                Store currentStore=stores.get(i);
+                return currentStore;
+            }else{
+                return new Store();
+            }
+        }
+    }*/
 
 }
 //Anna
@@ -147,6 +181,7 @@ class Store extends EvilCorporation{
         return super.getMoneyEarned();
     }
     
+    
     public void setName(String name){
         this.setName(name);
     }
@@ -172,6 +207,12 @@ class Store extends EvilCorporation{
     }
     public void addEmployee(Employee emp){
         this.employees.add(emp);
+    }
+    public void printInventory(){
+        for (int i=0;i<inventory.size();i++){
+            System.out.print(inventory.get(i).getId()+" ");
+            System.out.println(inventory.get(i).getName());
+        }
     }
 }
 
