@@ -5,10 +5,52 @@ import java.util.Scanner;
 
 public class PracticalJava{
     public static void main(String[] args){
-        Store store=new Store();
-        store.earnMoreMoney(100);
-        System.out.print(store.getMoneyEarned()+"\n"+store.bigCorpo.getMoneyEarned()+"\n"+store.getName());
-        
+        /*Initialize variables
+        */
+        EvilCorporation ParkWest= new EvilCorporation("ParkWest", new Person("Alan Resnick"),1000,new ArrayList<Store>());
+        Store pennStation=new Store("ParkWest", new Person("Alana Resnick"),0,new ArrayList<Store>(),ParkWest,1, new ArrayList<Item>(),new ArrayList<Employee>());
+        Store ross=new Store("Ross", new Person("Silly Billy"),0,new ArrayList<Store>(),ParkWest,2, new ArrayList<Item>(),new ArrayList<Employee>());
+        Store target=new Store("Target", new Person("Target Dog"),0,new ArrayList<Store>(),ParkWest,3, new ArrayList<Item>(),new ArrayList<Employee>());
+        Item sandwich=new Item(1, 9, "Sandwich");
+        Item drink=new Item(2, 3, "Drink");
+        pennStation.addInventory(sandwich);
+        pennStation.addInventory(drink);
+        Item shirt=new Item(3,14,"Shirt");
+        Item pants= new Item(4,20,"Pants");
+        ross.addInventory(pants);
+        ross.addInventory(shirt);
+        Item mug=new Item(5,100,"Mug");
+        Item gallonJugOfArizonaIceTea= new Item(6, 2, "Gallon jug of Arizona Ice Tea");
+        target.addInventory(gallonJugOfArizonaIceTea);
+        target.addInventory(mug);
+        Customer customer=new Customer("Player", 200, new ArrayList<Item>());
+        Employee cassandra= new Employee("Cassandra", 1, 1.7, target);
+        target.addEmployee(cassandra);
+        Employee joe= new Employee("Joe", 2, 1.3, pennStation);
+        pennStation.addEmployee(joe);
+        Employee girlypop = new Employee("Girlypop",3,2.0,ross);
+        Boolean shopping=false;
+
+
+
+       /*
+       Shopping sim */
+       do{
+        try{
+
+
+                
+            
+        }catch(IndexOutOfBoundsException ex){
+            System.out.print(ex);
+        } catch(NullPointerException ex){
+            System.out.print(ex);
+        }catch(RuntimeException ex){
+            System.out.print(ex);
+        }catch(Exception ex){
+            System.out.print(ex);
+        }
+       }while(shopping);
     }
 }
 //Anna
@@ -16,12 +58,13 @@ class EvilCorporation{
     private String name="";
     private Person billionaire=new Person();
     private double moneyEarned=0;
-
+    private ArrayList<Store> stores=new ArrayList<>();
     EvilCorporation(){}
-    EvilCorporation(String name, Person billionaire, double moneyEarned){
+    EvilCorporation(String name, Person billionaire, double moneyEarned, ArrayList<Store> stores){
         this.name=name; //name of company
         this.billionaire=billionaire; //owner of company
-        this.moneyEarned=moneyEarned;
+        this.moneyEarned=moneyEarned;   
+        this.stores=stores;
     }
 
     /**
@@ -53,6 +96,9 @@ class EvilCorporation{
     public void earnMoreMoney(double amount){
         this.moneyEarned=(this.moneyEarned+amount);
     }
+    public void addStore(Store store){
+        this.stores.add(store);
+    }
 
 }
 //Anna
@@ -62,7 +108,7 @@ class Store extends EvilCorporation{
     private ArrayList<Item> inventory=new ArrayList<>();
     private ArrayList<Employee> employees=new ArrayList<>();
     //double moneyEarned= 0;
-    EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000);
+    EvilCorporation bigCorpo=new EvilCorporation("Big Corpo",new Person(),10000,new ArrayList<>());
 
     Store(){
         
@@ -72,8 +118,8 @@ class Store extends EvilCorporation{
     // Asked how to fix super
     // Was getting error on super
     // I was told to get rid of repeated variables and change getters to return super.get___ */
-    Store(String name, Person billionare, double moneyEarned,EvilCorporation bigCorpo,int id, ArrayList<Item> inventory,ArrayList<Employee> employees){
-        super(name,billionare, moneyEarned);
+    Store(String name, Person billionare, double moneyEarned, ArrayList<Store> stores,EvilCorporation bigCorpo,int id, ArrayList<Item> inventory,ArrayList<Employee> employees){
+        super(name,billionare, moneyEarned,stores);
         this.id=id;
         //this.name=name;
         this.inventory=inventory;
