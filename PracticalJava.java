@@ -2,6 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.io.IOException;
+
 //maybe get rid of store id or make it the same as the index? nah
 public class PracticalJava{
     public static void main(String[] args){
@@ -35,6 +43,60 @@ public class PracticalJava{
         ParkWest.addStore(ross);
         ParkWest.addStore(pennStation);
         Scanner scanner=new Scanner(System.in);
+        Scanner myScanner = new Scanner(System.in);
+       System.out.println("Enter you name id");
+       String user_id=myScanner.nextLine();
+       //set customer name to this
+       customer.setName(user_id);
+       Path filePath = Path.of("players_name.txt");
+       boolean player_found=false;
+       //line number varable chat
+       int lineNumber = 0;
+       try{
+        //File myFile=new File("players_name.txt");
+        if(Files.exists(filePath)){
+            Scanner fileScanner = new Scanner(filePath);
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                lineNumber++; // Count every line read from the file
+
+
+                if (line.equals(user_id)) {
+                    System.out.println("Found " + user_id + " on line " + lineNumber);
+
+
+                    if (fileScanner.hasNextLine()) {
+                        String balanceLine = fileScanner.nextLine();
+                        lineNumber++; // Count the balance line too!
+           
+                        double savedBalance = Double.parseDouble(balanceLine);
+                        customer.setBalance(savedBalance);
+                        System.out.println("Balance is on line " + lineNumber + ": " + savedBalance);
+                }
+                player_found = true;
+                break;
+            }
+        }
+        fileScanner.close();
+            }
+            if (!player_found){
+                String new_entry = user_id;
+                //+"\n"+customer.getBalance()+"\n";
+                 Files.writeString(
+                    filePath,
+                    //new_entry,
+                    user_id+'\n',
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+                );
+            }
+
+
+        }catch(FileNotFoundException e){
+            System.out.println(e);
+        }catch(IOException a){
+        System.out.println(a);
+       }
 
         //System.out.println(ross.getInventory().size());
 
