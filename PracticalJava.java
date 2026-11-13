@@ -146,7 +146,21 @@ public class PracticalJava{
        System.out.print("You earned $"+customer.getBalance()+" and bought ");
        customer.printInventory();
        //write balance to file
+       try{
+       if(!player_found){
+        String bal_entry = ""+customer.getBalance();
+                //+"\n"+customer.getBalance()+"\n";
+                 Files.writeString(
+                    filePath,
+                    //new_entry,
+                    bal_entry+'\n',
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+                );
+       }
+    }catch(IOException ex){
 
+    }
 
     }
 }
