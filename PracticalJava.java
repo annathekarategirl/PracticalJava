@@ -36,6 +36,7 @@ public class PracticalJava{
         ParkWest.addStore(pennStation);
         Scanner scanner=new Scanner(System.in);
 
+        //System.out.println(ross.getInventory().size());
 
        /*
        Shopping sim */
@@ -48,7 +49,10 @@ public class PracticalJava{
             System.out.println("Welcome to "+currentStore.getName());
             System.out.println("What will you buy?");
             currentStore.printInventory();
-            
+            int currentItemId= scanner.nextInt();
+            customer.addItem(currentStore.getInventory().get(currentItemId));
+            System.out.print("You have a "+currentStore.getInventory().get(currentItemId).getName());
+            currentStore.getEmployees().get(0).dialogue();
         }catch(IndexOutOfBoundsException ex){
             System.out.print(ex);
         } catch(NullPointerException ex){
@@ -209,8 +213,9 @@ class Store extends EvilCorporation{
         this.employees.add(emp);
     }
     public void printInventory(){
-        for (int i=0;i<inventory.size();i++){
-            System.out.print(inventory.get(i).getId()+" ");
+        int i=0;
+        for (i=0;i<inventory.size();i++){
+            System.out.print(i+" ");
             System.out.println(inventory.get(i).getName());
         }
     }
@@ -271,6 +276,7 @@ class Employee extends Person{
     }
     public void dialogue(){
         //placeholder
+        System.out.println("Have a good day!");
     }
 }
 class Customer extends Person{
