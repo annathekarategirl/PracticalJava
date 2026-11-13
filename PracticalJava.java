@@ -58,13 +58,15 @@ public class PracticalJava{
             customer.setBalance(customer.getBalance()*multiply);
             System.out.println("You now have $"+customer.getBalance());
             Boolean not_valid=true;
-            while(not_valid);
+            while(not_valid){
             System.out.print("Keep shopping? y/n (lowercase)");
             String sentinel=scanner.next();
             switch (sentinel){
-                case "y": shopping=true;
+                case "y": shopping=true; not_valid=false; break;
+                case "n": shopping=false; not_valid=false; break;
+                default: break;
             }
-
+        }
         }catch(IndexOutOfBoundsException ex){
             System.out.print(ex);
         } catch(NullPointerException ex){
@@ -75,7 +77,7 @@ public class PracticalJava{
             System.out.print(ex);
         }
        }while(shopping);
-
+       
        //write balance to file
 
 
