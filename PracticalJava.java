@@ -57,6 +57,7 @@ public class PracticalJava{
             double multiply=currentStore.getEmployees().get(0).dialogue();
             customer.setBalance(customer.getBalance()*multiply);
             System.out.println("You now have $"+customer.getBalance());
+            currentStore.earnMoreMoney(currentItem.getPrice());
             Boolean not_valid=true;
             while(not_valid){
             System.out.print("Keep shopping? y/n (lowercase)");
@@ -77,7 +78,11 @@ public class PracticalJava{
             System.out.print(ex);
         }
        }while(shopping);
-       
+       for(int i=0;i<ParkWest.getStores().size();i++){
+        System.out.println(ParkWest.getStores().get(i).getName()+" earned $"+ParkWest.getStores().get(i).getMoneyEarned());
+       }
+       System.out.print("You earned $"+customer.getBalance()+" and bought ");
+       customer.printInventory();
        //write balance to file
 
 
@@ -341,6 +346,13 @@ class Customer extends Person{
     }
     public  void addItem(Item item){
         this.items.add(item);
+    }
+    public void printInventory(){
+        int i=0;
+        for (i=0;i<this.items.size();i++){
+            
+            System.out.println(this.items.get(i).getName());
+        }
     }
 }
 
