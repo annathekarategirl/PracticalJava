@@ -50,9 +50,21 @@ public class PracticalJava{
             System.out.println("What will you buy?");
             currentStore.printInventory();
             int currentItemId= scanner.nextInt();
-            customer.addItem(currentStore.getInventory().get(currentItemId));
-            System.out.print("You have a "+currentStore.getInventory().get(currentItemId).getName());
-            currentStore.getEmployees().get(0).dialogue();
+            Item currentItem= currentStore.getInventory().get(currentItemId);
+            customer.addItem(currentItem);
+            customer.setBalance(customer.getBalance()-currentItem.getPrice());
+            System.out.print("You have a "+currentItem.getName()+" and have $"+customer.getBalance());
+            double multiply=currentStore.getEmployees().get(0).dialogue();
+            customer.setBalance(customer.getBalance()*multiply);
+            System.out.println("You now have $"+customer.getBalance());
+            Boolean not_valid=true;
+            while(not_valid);
+            System.out.print("Keep shopping? y/n (lowercase)");
+            String sentinel=scanner.next();
+            switch (sentinel){
+                case "y": shopping=true;
+            }
+
         }catch(IndexOutOfBoundsException ex){
             System.out.print(ex);
         } catch(NullPointerException ex){
@@ -63,6 +75,10 @@ public class PracticalJava{
             System.out.print(ex);
         }
        }while(shopping);
+
+       //write balance to file
+
+
     }
 }
 //Anna
@@ -216,7 +232,7 @@ class Store extends EvilCorporation{
         int i=0;
         for (i=0;i<inventory.size();i++){
             System.out.print(i+" ");
-            System.out.println(inventory.get(i).getName());
+            System.out.println(inventory.get(i).getName()+" $"+inventory.get(i).getPrice());
         }
     }
 }
@@ -246,7 +262,7 @@ class Employee extends Person{
     private int id;
     private double happyMultiplier;
     private Store store_obj= new Store();
-   
+    private Scanner myscan=new Scanner(System.in);
     Employee(){
         super();
     }
@@ -274,9 +290,17 @@ class Employee extends Person{
     public void setMultiplier(double happyMultiplier){
         this.happyMultiplier=happyMultiplier;
     }
-    public void dialogue(){
+    public double dialogue(){
         //placeholder
-        System.out.println("Have a good day!");
+        System.out.println("\nWhat do you want to say to the employee?\n1: Have a good day!\n2: Have a bad day >:(\n3: Have a day.");
+        int x=myscan.nextInt();
+        switch(x){
+            case 1 : System.out.println("You earned money!"); return this.getMultiplier();
+            case 2 : System.out.print("You didn't earn anything"); return 1.0; 
+            case 3 : System.out.print("You didn't earn anything"); return 1.0;
+            default: System.out.print("Carving your own path ig"); return 1.0; 
+        }
+        
     }
 }
 class Customer extends Person{
