@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
+import java.util.InputMismatchException;
 
 //maybe get rid of store id or make it the same as the index? nah
 public class PracticalJava{
@@ -44,7 +45,7 @@ public class PracticalJava{
         ParkWest.addStore(pennStation);
         Scanner scanner=new Scanner(System.in);
         Scanner myScanner = new Scanner(System.in);
-       System.out.println("Enter you name id");
+       System.out.println("Enter your name exactly as you did last time if you played before");
        String user_id=myScanner.nextLine();
        //set customer name to this
        customer.setName(user_id);
@@ -113,9 +114,13 @@ public class PracticalJava{
             currentStore.printInventory();
             int currentItemId= scanner.nextInt();
             Item currentItem= currentStore.getInventory().get(currentItemId);
-            customer.addItem(currentItem);
-            customer.setBalance(customer.getBalance()-currentItem.getPrice());
-            System.out.print("You have a "+currentItem.getName()+" and have $"+customer.getBalance());
+            if(currentItem.getPrice()<customer.getBalance()){
+                customer.addItem(currentItem);
+                customer.withdraw(currentItem.getPrice());
+                System.out.print("You have a "+currentItem.getName()+" and have $"+customer.getBalance());
+            }else{
+                System.out.println("Hah you can't afford that");
+            }
             double multiply=currentStore.getEmployees().get(0).dialogue();
             customer.setBalance(customer.getBalance()*multiply);
             System.out.println("You now have $"+customer.getBalance());
@@ -134,17 +139,23 @@ public class PracticalJava{
             System.out.print(ex);
         } catch(NullPointerException ex){
             System.out.print(ex);
+        }catch(InputMismatchException ex){
+            System.out.print("Don't even joke.");
         }catch(RuntimeException ex){
             System.out.print(ex);
         }catch(Exception ex){
             System.out.print(ex);
         }
        }while(shopping);
+
+       //for the statistics file we could make a string and just write it to a new file
        for(int i=0;i<ParkWest.getStores().size();i++){
         System.out.println(ParkWest.getStores().get(i).getName()+" earned $"+ParkWest.getStores().get(i).getMoneyEarned());
        }
        System.out.print("You earned $"+customer.getBalance()+" and bought ");
        customer.printInventory();
+       System.out.print(" and spent"+customer.getTotalSpent());
+    
        //write balance to file
        try{
        if(!player_found){
@@ -286,7 +297,7 @@ class Store extends EvilCorporation{
     
     
     public void setName(String name){
-        this.setName(name);
+        super.setName(name);
     }
     public void setMoney(double bal){
         super.setMoney(bal);
@@ -379,8 +390,8 @@ class Employee extends Person{
         int x=myscan.nextInt();
         switch(x){
             case 1 : System.out.println("You earned money!"); return this.getMultiplier();
-            case 2 : System.out.print("You didn't earn anything"); return 1.0; 
-            case 3 : System.out.print("You didn't earn anything"); return 1.0;
+            case 2 : System.out.print("You didn't earn anything cuz you are mean. Soon you will run out of money and you will have NO ONE to turn to."); return 1.0; 
+            case 3 : System.out.print("I think you were trying to be funny. Anyway, you got some extra cash."); return 1.2;
             default: System.out.print("Carving your own path ig"); return 1.0; 
         }
         
@@ -389,6 +400,7 @@ class Employee extends Person{
 class Customer extends Person{
     private double balance = 1000;
     private ArrayList<Item> items= new ArrayList<>();
+    private double totalSpent=0;
     //private String name
     Customer(){
         super();
@@ -414,8 +426,12 @@ class Customer extends Person{
         // TODO Auto-generated method stub
         super.setName(name);
     }
+    public double getTotalSpent(){
+        return this.totalSpent;
+    }
     public  void withdraw(double amount){
         this.balance-=amount;
+        totalSpent+=amount;
     }
     public void deposit(double amount){
         this.balance+=amount;
