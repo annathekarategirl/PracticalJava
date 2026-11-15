@@ -25,11 +25,12 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.lang.ArithmeticException;
 
-//maybe get rid of store id or make it the same as the index? nah
+
 public class PracticalJava{
     public static void main(String[] args){
         /*Initialize variables
         */
+       //Anna
         EvilCorporation ParkWest= new EvilCorporation("ParkWest", new Person("Alan Resnick"),1000,new ArrayList<Store>());
         Store pennStation=new Store("Penn Station", new Person("Alana Resnick"),0,new ArrayList<Store>(),ParkWest,1, new ArrayList<Item>(),new ArrayList<Employee>());
         Store ross=new Store("Ross", new Person("Silly Billy"),0,new ArrayList<Store>(),ParkWest,2, new ArrayList<Item>(),new ArrayList<Employee>());
@@ -57,6 +58,8 @@ public class PracticalJava{
         ParkWest.addStore(target);
         ParkWest.addStore(ross);
         ParkWest.addStore(pennStation);
+
+        //Genesis
         Scanner scanner=new Scanner(System.in);
         Scanner myScanner = new Scanner(System.in);
        System.out.println("Enter your name exactly as you did last time if you played before");
@@ -69,6 +72,7 @@ public class PracticalJava{
        int lineNumber = 0;
        try{
         //File myFile=new File("players_name.txt");
+        //Checking for previous users and balance
         if(Files.exists(filePath)){
             Scanner fileScanner = new Scanner(filePath);
             while (fileScanner.hasNextLine()) {
@@ -93,7 +97,7 @@ public class PracticalJava{
             }
         }
         fileScanner.close();
-            }
+            }//Writes new name if not found
             if (!player_found){
                 String new_entry = user_id;
                 //+"\n"+customer.getBalance()+"\n";
@@ -117,6 +121,7 @@ public class PracticalJava{
        double theSavedBalance=customer.getBalance();
        /*
        Shopping sim */
+       //Anna
        do{
         try{
             ParkWest.printStores();
@@ -162,6 +167,7 @@ public class PracticalJava{
             }
         }
        }while(shopping);
+       //Generate lucky numbers to get bonus
        int[] winningIds=new int[2];
        winningIds[0]=(int)(Math.random()*6)+1;
        winningIds[1]=(int)(Math.random()*6)+1;
@@ -179,13 +185,13 @@ public class PracticalJava{
         }
     }
     double luckyWinRate=0;
-    try{
-        //Gemini told me that I needed to put (double) in front to fix integer division. I used this because the statistics looked off. I wrote the rest of the line myself
-     luckyWinRate=(double)matches/customer.getItems().size();
-    }catch(ArithmeticException ex){
-         luckyWinRate=0;
-    }
-     //Since you're "Luckier" if you bought less items but bought the lucky item anyway
+    // AI: Gemini
+// Purpose: Win rate looked off so I asked why. It said integer division was the issue, so cast it to a double
+// Changes: Casting to double was only AI change
+    if(customer.getItems().size()!=0) {
+        luckyWinRate=(double)matches/customer.getItems().size();
+}
+     //Since you're "Luckier" if you bought less items but bought the lucky item anyway (Let the customer think they're luckier)
     double beforeLucky=customer.getBalance();
         System.out.println("Two lucky items were chosen. If you match, you get a bonus!");
         switch(matches){
@@ -202,6 +208,7 @@ public class PracticalJava{
        System.out.println("and spent $"+customer.getTotalSpent());
     
        //write balance to file
+       //Anna and Genesis
        try{
        if(!player_found){
         String bal_entry = ""+customer.getBalance();
@@ -219,7 +226,7 @@ public class PracticalJava{
         ArrayList<String> lines=new ArrayList<>(Files.readAllLines(filePath));
         lines.set(lineNumber-1, ""+customer.getBalance());
         Files.write(filePath,lines);
-       }
+       }//Generate Statistics file
        Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
     +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky)+"\nLucky Win Rate: "+luckyWinRate);
     }catch(IOException ex){
