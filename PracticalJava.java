@@ -4,6 +4,10 @@
  * Practical Exam
  * Shppping Simulator
  * We pledge that we did not cheat or break the AI policy
+ * I have only used resources indicated that are allowable.
+    The work submitted is my, and only my work.
+Signature: Anna Moore
+Genesis Ijeomah
  */
 
 
