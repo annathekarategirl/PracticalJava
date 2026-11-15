@@ -172,66 +172,69 @@ public class PracticalJava{
        winningIds[0]=(int)(Math.random()*6)+1;
        winningIds[1]=(int)(Math.random()*6)+1;
        System.out.println("Winning IDs: \n"+ winningIds[0]+"\n"+winningIds[1]);
-     int[] boughtIds=new int[2];
-     for(int i=0;i<boughtIds.length;i++){
-        if(i<customer.getItems().size()){
-            boughtIds[i]=customer.getItems().get(i).getId();
+       int[] boughtIds=new int[2];
+       for(int i=0;i<boughtIds.length;i++){
+            if(i<customer.getItems().size()){
+                boughtIds[i]=customer.getItems().get(i).getId();
+            }
         }
-    }
-    int matches=0;
-    for(int i=0;i<winningIds.length;i++){
-        if(winningIds[i]==boughtIds[i]){
-            matches++;
+        int matches=0;
+        for(int i=0;i<winningIds.length;i++){
+            if(winningIds[i]==boughtIds[i]){
+                matches++;
+            }
         }
+        double luckyWinRate=0;
+        // AI: Gemini
+    // Why/How: Win rate looked off so I asked why. It said integer division was the issue, so cast it to a double
+    // Changes: Casting to double was only AI change
+        if(customer.getItems().size()!=0) {
+            luckyWinRate=(double)matches/customer.getItems().size();
     }
-    double luckyWinRate=0;
-    // AI: Gemini
-// Purpose: Win rate looked off so I asked why. It said integer division was the issue, so cast it to a double
-// Changes: Casting to double was only AI change
-    if(customer.getItems().size()!=0) {
-        luckyWinRate=(double)matches/customer.getItems().size();
-}
-     //Since you're "Luckier" if you bought less items but bought the lucky item anyway (Let the customer think they're luckier)
-    double beforeLucky=customer.getBalance();
-        System.out.println("Two lucky items were chosen. If you match, you get a bonus!");
-        switch(matches){
-            case 0: System.out.println("You didn't buy any of the lucky items.");System.out.println("You now have $"+customer.getBalance());break;
-            case 1: System.out.println("You bought one lucky item!"); customer.setBalance(customer.getBalance()*1.5); System.out.println("You now have $"+customer.getBalance()); break;
-            case 2: System.out.println("You bought all the lucky items!"); customer.setBalance(customer.getBalance()*2);
+        //Since you're "Luckier" if you bought less items but bought the lucky item anyway (Let the customer think they're luckier)
+        double beforeLucky=customer.getBalance();
+            System.out.println("Two lucky items were chosen. If you match, you get a bonus!");
+            switch(matches){
+                case 0: System.out.println("You didn't buy any of the lucky items.");System.out.println("You now have $"+customer.getBalance());break;
+                case 1: System.out.println("You bought one lucky item!"); customer.setBalance(customer.getBalance()*1.5); System.out.println("You now have $"+customer.getBalance()); break;
+                case 2: System.out.println("You bought all the lucky items!"); customer.setBalance(customer.getBalance()*2);
+            }
+        //for the statistics file we could make a string and just write it to a new file
+        for(int i=0;i<ParkWest.getStores().size();i++){
+            System.out.println(ParkWest.getStores().get(i).getName()+" earned $"+ParkWest.getStores().get(i).getMoneyEarned());
         }
-       //for the statistics file we could make a string and just write it to a new file
-       for(int i=0;i<ParkWest.getStores().size();i++){
-        System.out.println(ParkWest.getStores().get(i).getName()+" earned $"+ParkWest.getStores().get(i).getMoneyEarned());
-       }
-       System.out.println("You earned $"+customer.getBalance()+" and bought: ");
-       customer.printInventory();
-       System.out.println("and spent $"+customer.getTotalSpent());
-    
-       //write balance to file
-       //Anna and Genesis
-       try{
-       if(!player_found){
-        String bal_entry = ""+customer.getBalance();
-                //+"\n"+customer.getBalance()+"\n";
-                 Files.writeString(
-                    filePath,
-                    //new_entry,
-                    bal_entry+'\n',
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND
-                );
-       }else{
-        //write on linenumber varible
-        //Used Claude to inform us on how to put all lines in an arraylist because file syntax can be tricky
-        ArrayList<String> lines=new ArrayList<>(Files.readAllLines(filePath));
-        lines.set(lineNumber-1, ""+customer.getBalance());
-        Files.write(filePath,lines);
-       }//Generate Statistics file
-       Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
-    +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky)+"\nLucky Win Rate: "+luckyWinRate);
-    }catch(IOException ex){
-        System.out.println("File failed");
-    }
+        System.out.println("You earned $"+customer.getBalance()+" and bought: ");
+        customer.printInventory();
+        System.out.println("and spent $"+customer.getTotalSpent());
+        
+        //write balance to file
+        //Anna and Genesis
+        try{
+        if(!player_found){
+            String bal_entry = ""+customer.getBalance();
+                    //+"\n"+customer.getBalance()+"\n";
+                    Files.writeString(
+                        filePath,
+                        //new_entry,
+                        bal_entry+'\n',
+                        StandardOpenOption.CREATE,
+                        StandardOpenOption.APPEND
+                    );
+        }else{
+            //write on linenumber varible
+            //AI: Used Gemini 
+            // How: to inform us on how to put all lines in an arraylist 
+            // Why: because I did not remember the keyword to read all lines
+            //Changes:Set up array list syntax-- then used provided "readalllines(filepath)" given by AI
+            ArrayList<String> lines=new ArrayList<>(Files.readAllLines(filePath));
+            lines.set(lineNumber-1, ""+customer.getBalance());
+            Files.write(filePath,lines);
+        }//Generate Statistics file
+        Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
+        +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky)+"\nLucky Win Rate: "+luckyWinRate);
+        }catch(IOException ex){
+            System.out.println("File failed");
+        }
 
     }
 }
@@ -339,8 +342,8 @@ class Store extends EvilCorporation{
     }
     //*
     // Chatgpt
-    // Asked how to fix super
-    // Was getting error on super
+    // How: Asked how to fix super
+    // Why: Was getting error on super
     // I was told to get rid of repeated variables and change getters to return super.get___ */
     Store(String name, Person billionare, double moneyEarned, ArrayList<Store> stores,EvilCorporation bigCorpo,int id, ArrayList<Item> inventory,ArrayList<Employee> employees){
         super(name,billionare, moneyEarned,stores);
