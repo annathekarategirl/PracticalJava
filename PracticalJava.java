@@ -218,7 +218,7 @@ public class PracticalJava{
        Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
     +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky)+"\nLucky Win Rate: "+luckyWinRate);
     }catch(IOException ex){
-
+        System.out.print("File failed");
     }
 
     }
@@ -321,7 +321,7 @@ class Store extends EvilCorporation{
         this.inventory=inventory;
         this.employees=employees;
         //this.moneyEarned=moneyEarned;
-        //this.bigCorpo=bigCorpo;
+        this.bigCorpo=bigCorpo;
     }
     /**
      * Getters and setters
