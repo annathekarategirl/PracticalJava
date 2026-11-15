@@ -1,5 +1,5 @@
-Total spent: $14.0
-Net earnings: $-14.0
+Total spent: $3.0
+Net earnings: $139.60000000000002
 Lucky Matches: 0
 Lucky Earnings: 0.0
 Lucky Win Rate: 0.0

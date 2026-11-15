@@ -116,7 +116,7 @@ public class PracticalJava{
        do{
         try{
             ParkWest.printStores();
-            System.out.print("Type the number of store to go in: ");
+            System.out.println("Type the number of store to go in: ");
             int currentStoreId=scanner.nextInt();
             Store currentStore= ParkWest.getStores().get(currentStoreId);
             System.out.println("Welcome to "+currentStore.getName());
@@ -127,7 +127,7 @@ public class PracticalJava{
             if(currentItem.getPrice()<customer.getBalance()){
                 customer.addItem(currentItem);
                 customer.withdraw(currentItem.getPrice());
-                System.out.print("You have a "+currentItem.getName()+" and have $"+customer.getBalance());
+                System.out.println("You have a "+currentItem.getName()+" and have $"+customer.getBalance());
             }else{
                 System.out.println("Hah you can't afford that");
             }
@@ -161,7 +161,7 @@ public class PracticalJava{
        int[] winningIds=new int[2];
        winningIds[0]=(int)(Math.random()*6)+1;
        winningIds[1]=(int)(Math.random()*6)+1;
-       System.out.print("Winning IDs: \n"+ winningIds[0]+"\n"+winningIds[1]);
+       System.out.println("Winning IDs: \n"+ winningIds[0]+"\n"+winningIds[1]);
      int[] boughtIds=new int[2];
      for(int i=0;i<boughtIds.length;i++){
         if(i<customer.getItems().size()){
@@ -182,19 +182,19 @@ public class PracticalJava{
     }
      //Since you're "Luckier" if you bought less items but bought the lucky item anyway
     double beforeLucky=customer.getBalance();
-        System.out.print("Two lucky items were chosen. If you match, you get a bonus!");
+        System.out.println("Two lucky items were chosen. If you match, you get a bonus!");
         switch(matches){
-            case 0: System.out.print("You didn't buy any of the lucky items.");System.out.print("You now have $"+customer.getBalance());break;
-            case 1: System.out.print("You bought one lucky item!"); customer.setBalance(customer.getBalance()*1.5); System.out.print("You now have $"+customer.getBalance()); break;
-            case 2: System.out.print("You bought all the lucky items!"); customer.setBalance(customer.getBalance()*2);
+            case 0: System.out.println("You didn't buy any of the lucky items.");System.out.println("You now have $"+customer.getBalance());break;
+            case 1: System.out.println("You bought one lucky item!"); customer.setBalance(customer.getBalance()*1.5); System.out.println("You now have $"+customer.getBalance()); break;
+            case 2: System.out.println("You bought all the lucky items!"); customer.setBalance(customer.getBalance()*2);
         }
        //for the statistics file we could make a string and just write it to a new file
        for(int i=0;i<ParkWest.getStores().size();i++){
         System.out.println(ParkWest.getStores().get(i).getName()+" earned $"+ParkWest.getStores().get(i).getMoneyEarned());
        }
-       System.out.print("You earned $"+customer.getBalance()+" and bought ");
+       System.out.println("You earned $"+customer.getBalance()+" and bought: ");
        customer.printInventory();
-       System.out.print(" and spent"+customer.getTotalSpent());
+       System.out.println("and spent $"+customer.getTotalSpent());
     
        //write balance to file
        try{
@@ -218,7 +218,7 @@ public class PracticalJava{
        Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
     +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky)+"\nLucky Win Rate: "+luckyWinRate);
     }catch(IOException ex){
-        System.out.print("File failed");
+        System.out.println("File failed");
     }
 
     }
@@ -438,9 +438,9 @@ class Employee extends Person{
         int x=myscan.nextInt();
         switch(x){
             case 1 : System.out.println("You earned money!"); return this.getMultiplier();
-            case 2 : System.out.print("You didn't earn anything cuz you are mean. Soon you will run out of money and you will have NO ONE to turn to."); return 1.0; 
-            case 3 : System.out.print("I think you were trying to be funny. Anyway, you got some extra cash."); return 1.2;
-            default: System.out.print("Carving your own path ig"); return 1.0; 
+            case 2 : System.out.println("You didn't earn anything cuz you are mean. Soon you will run out of money and you will have NO ONE to turn to."); return 1.0; 
+            case 3 : System.out.println("I think you were trying to be funny. Anyway, you got some extra cash."); return 1.2;
+            default: System.out.println("Carving your own path ig"); return 1.0; 
         }
         
     }
