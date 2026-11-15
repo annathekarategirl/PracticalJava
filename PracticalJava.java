@@ -109,7 +109,7 @@ public class PracticalJava{
        }
 
         //System.out.println(ross.getInventory().size());
-
+       double theSavedBalance=customer.getBalance();
        /*
        Shopping sim */
        do{
@@ -160,15 +160,19 @@ public class PracticalJava{
        int[] winningIds=new int[2];
        winningIds[0]=(int)(Math.random()*6)+1;
        winningIds[1]=(int)(Math.random()*6)+1;
-       int matches=0;
-        for(int i=0;i<winningIds.length;i++){
-            for(int j=0;j<customer.getItems().size();j++){
-                if(winningIds[i]==customer.getItems().get(j).getId()){
-                    matches++;
-                    break;
-                }
-            }
+     int[] boughtIds=new int[2];
+     for(int i=0;i<boughtIds.length;i++){
+        if(i<customer.getItems().size()){
+            boughtIds[i]=customer.getItems().get(i).getId();
         }
+    }
+    int matches=0;
+    for(int i=0;i<winningIds.length;i++){
+        if(winningIds[i]==boughtIds[i]){
+            matches++;
+        }
+    }
+    double beforeLucky=customer.getBalance();
         System.out.print("Two lucky items were chosen. If you match, you get a bonus!");
         switch(matches){
             case 0: System.out.print("You didn't buy any of the lucky items.");System.out.print("You now have $"+customer.getBalance());break;
@@ -202,8 +206,8 @@ public class PracticalJava{
         lines.set(lineNumber-1, ""+customer.getBalance());
         Files.write(filePath,lines);
        }
-       Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-200)
-    +"\nLucky Matches: "+matches);
+       Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
+    +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky));
     }catch(IOException ex){
 
     }
@@ -286,7 +290,7 @@ class EvilCorporation{
 }
 //Anna
 class Store extends EvilCorporation{
-    int id=0;
+    private int id=0;
     //private String name="STORE";
     private ArrayList<Item> inventory=new ArrayList<>();
     private ArrayList<Employee> employees=new ArrayList<>();
@@ -453,9 +457,13 @@ class Customer extends Person{
     public double getBalance() {
         return balance;
     }
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setBalance(double balance){
+    if(balance<0){
+        System.out.println("Balance can't be negative");
+    }else{
+        this.balance=balance;
     }
+}
     @Override
     public void setName(String name) {
         // TODO Auto-generated method stub
@@ -488,9 +496,9 @@ class Customer extends Person{
 
 //Anna
 class Item{
-    int id=0;
-    double price=0;
-    String name="Item";
+    private int id=0;
+    private double price=0;
+    private String name="Item";
     Item(){}
     Item(int id, double price, String name){
         this.id=id;
@@ -511,8 +519,12 @@ class Item{
         return this.price;
     }
     public void setPrice(double price){
+    if(price<0){
+        System.out.println("Price can't be negative");
+    }else{
         this.price=price;
     }
+}
     public String getName(){
         return this.name;
     }
