@@ -1,3 +1,12 @@
+/**
+ * Anna M and Genesis I
+ * 11/15/26
+ * Practical Exam
+ * Shppping Simulator
+ * We pledge that we did not cheat or break the AI policy
+ */
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -148,7 +157,24 @@ public class PracticalJava{
             }
         }
        }while(shopping);
-
+       int[] winningIds=new int[2];
+       winningIds[0]=(int)(Math.random()*6)+1;
+       winningIds[1]=(int)(Math.random()*6)+1;
+       int matches=0;
+        for(int i=0;i<winningIds.length;i++){
+            for(int j=0;j<customer.getItems().size();j++){
+                if(winningIds[i]==customer.getItems().get(j).getId()){
+                    matches++;
+                    break;
+                }
+            }
+        }
+        System.out.print("Two lucky items were chosen. If you match, you get a bonus!");
+        switch(matches){
+            case 0: System.out.print("You didn't buy any of the lucky items.");System.out.print("You now have $"+customer.getBalance());break;
+            case 1: System.out.print("You bought one lucky item!"); customer.setBalance(customer.getBalance()*1.5); System.out.print("You now have $"+customer.getBalance()); break;
+            case 2: System.out.print("You bought all the lucky items!"); customer.setBalance(customer.getBalance()*2);
+        }
        //for the statistics file we could make a string and just write it to a new file
        for(int i=0;i<ParkWest.getStores().size();i++){
         System.out.println(ParkWest.getStores().get(i).getName()+" earned $"+ParkWest.getStores().get(i).getMoneyEarned());
@@ -176,7 +202,8 @@ public class PracticalJava{
         lines.set(lineNumber-1, ""+customer.getBalance());
         Files.write(filePath,lines);
        }
-       Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-200));
+       Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-200)
+    +"\nLucky Matches: "+matches);
     }catch(IOException ex){
 
     }
@@ -437,6 +464,9 @@ class Customer extends Person{
     public double getTotalSpent(){
         return this.totalSpent;
     }
+    public ArrayList<Item> getItems(){
+    return this.items;
+}
     public  void withdraw(double amount){
         this.balance-=amount;
         totalSpent+=amount;
