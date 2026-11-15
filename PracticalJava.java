@@ -9,7 +9,7 @@
 Signature: Anna Moore
 Genesis Ijeomah
  */
-
+//Program best run in VS CODE
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class PracticalJava{
                 lineNumber++; // Count every line read from the file
 
 
-                if (line.equals(user_id)) {
+                if (line.equals(user_id)&&!user_id.equals("")) {
                     System.out.println("Found " + user_id + " on line " + lineNumber);
 
 
@@ -98,7 +98,7 @@ public class PracticalJava{
         }
         fileScanner.close();
             }//Writes new name if not found
-            if (!player_found){
+            if (!player_found && !user_id.equals("")){
                 String new_entry = user_id;
                 //+"\n"+customer.getBalance()+"\n";
                  Files.writeString(
