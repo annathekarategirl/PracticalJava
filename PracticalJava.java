@@ -297,6 +297,10 @@ class EvilCorporation{
     public void addStore(Store store){
         this.stores.add(store);
     }
+    /**
+     * Prints stores
+     * 
+     */
     public void printStores(){
         for (int i=0;i<stores.size();i++){
             System.out.print(i+" ");
@@ -394,15 +398,30 @@ class Store extends EvilCorporation{
         bigCorpo.earnMoreMoney(amount);
         super.earnMoreMoney(amount);
     }
+    /**
+     * Adds to items
+     * @param item the item
+     */
     public void addInventory(Item item){
         this.inventory.add(item);
     }
+    /**
+     * removes from items
+     * @param item the item
+     */
     public void removeInventory(Item item){
         this.inventory.remove(item);
     }
+    /**
+     * adds employee to store
+     * @param emp the employee
+     */
     public void addEmployee(Employee emp){
         this.employees.add(emp);
     }
+    /**
+     * prints inventory
+     */
     public void printInventory(){
         int i=0;
         for (i=0;i<inventory.size();i++){
@@ -472,6 +491,10 @@ class Employee extends Person{
     public void setMultiplier(double happyMultiplier){
         this.happyMultiplier=happyMultiplier;
     }
+    /**
+     * Interaction with employee
+     * @return multiplier
+     */
     public double dialogue(){
         System.out.println("\nWhat do you want to say to the employee?\n1: Have a good day!\n2: Have a bad day >:(\n3: Have a day.");
         int x=myscan.nextInt();
@@ -530,16 +553,32 @@ class Customer extends Person{
     public ArrayList<Item> getItems(){
     return this.items;
 }
+
+/**
+ * Minuses the balance
+ * @param amount the amount
+ */
     public  void withdraw(double amount){
         this.balance-=amount;
         totalSpent+=amount;
     }
+    /**
+     * Adds balance
+     * @param amount
+     */
     public void deposit(double amount){
         this.balance+=amount;
     }
+    /**
+     * Adds to inventory
+     * @param item add this
+     */
     public  void addItem(Item item){
         this.items.add(item);
     }
+    /**
+     * Prints inventory
+     */
     public void printInventory(){
         int i=0;
         for (i=0;i<this.items.size();i++){
