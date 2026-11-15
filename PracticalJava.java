@@ -176,7 +176,8 @@ public class PracticalJava{
     }
     double luckyWinRate=0;
     try{
-     luckyWinRate=matches/customer.getItems().size();
+        //Gemini told me that I needed to put (double) in front to fix integer division. I used this because the statistics looked off. I wrote the rest of the line myself
+     luckyWinRate=(double)matches/customer.getItems().size();
     }catch(ArithmeticException ex){
          luckyWinRate=0;
     }
@@ -224,6 +225,15 @@ public class PracticalJava{
     }
 }
 //Anna
+/**
+*@description: This class creates an evil corporation where we make a *person from the person class.
+*@getter/ setters: This class gets the money earned, name, and stores.
+*But sets the money, and name. 
+*@params: It takes the name, money earned, billionaire status and array of *stores. 
+
+
+*/
+
 class EvilCorporation{
     private String name="";
     private Person billionaire=new Person();
@@ -297,6 +307,13 @@ class EvilCorporation{
     }*/
 
 }
+/**
+*@description: This class is an extension of the evil copration class .
+*@getter/ setters: This class gets the inventory, employee,ID, Name
+* and money earned. But sets the inventory,money, and name. 
+*@params: It takes everything that the evil coperation does with id+ *bigcorpo
+*/
+
 //Anna
 class Store extends EvilCorporation{
     private int id=0;
@@ -353,9 +370,11 @@ class Store extends EvilCorporation{
     public void setInventory(ArrayList<Item> list){
         this.inventory=list;
     }
-    //*DO JAVADOCS
-    // !!!!!!!!!!!
-    // !!!!!!!!!!*/
+   //** *@param: These methods takes in amount, item, and employee
+    /*@ description: These methods adds and removes things to inventory
+    * Also adds employees and money.
+    */
+
     @Override 
     public void earnMoreMoney(double amount){
         bigCorpo.earnMoreMoney(amount);
@@ -392,10 +411,17 @@ class Person{
     public void setName(String name) {
         this.name=name;
     }
-    //MY Account placeholder
+    
    
    
 }
+/**
+*@description: This class is for the employee it extends the person class
+*@getter/ setters: This class gets and sets, store, id and multiplier
+*@params: It takes the name, id, happy multiplier and store object
+
+
+*/
 
 
 //Genesis
@@ -433,7 +459,6 @@ class Employee extends Person{
         this.happyMultiplier=happyMultiplier;
     }
     public double dialogue(){
-        //placeholder
         System.out.println("\nWhat do you want to say to the employee?\n1: Have a good day!\n2: Have a bad day >:(\n3: Have a day.");
         int x=myscan.nextInt();
         switch(x){
@@ -445,6 +470,15 @@ class Employee extends Person{
         
     }
 }
+/**
+*@description: This class extends the person class 
+*@getter/ setters: This class gets and set name, balance, items and total 
+* money spent 
+*@params: It takes the name, balance and items 
+
+
+*/
+//Genesis
 class Customer extends Person{
     private double balance = 1000;
     private ArrayList<Item> items= new ArrayList<>();
@@ -460,7 +494,6 @@ class Customer extends Person{
     }
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
         return super.getName();
     }
     public double getBalance() {
@@ -475,7 +508,6 @@ class Customer extends Person{
 }
     @Override
     public void setName(String name) {
-        // TODO Auto-generated method stub
         super.setName(name);
     }
     public double getTotalSpent(){
@@ -502,6 +534,13 @@ class Customer extends Person{
         }
     }
 }
+/**
+*@description: This class creates an item  
+*@getter/ setters: This class gets and sets id price and name.
+*@params: It takes the id, price, and name.
+
+
+*/
 
 //Anna
 class Item{
