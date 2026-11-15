@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.lang.ArithmeticException;
 
 //maybe get rid of store id or make it the same as the index? nah
 public class PracticalJava{
@@ -160,6 +161,7 @@ public class PracticalJava{
        int[] winningIds=new int[2];
        winningIds[0]=(int)(Math.random()*6)+1;
        winningIds[1]=(int)(Math.random()*6)+1;
+       System.out.print("Winning IDs: \n"+ winningIds[0]+"\n"+winningIds[1]);
      int[] boughtIds=new int[2];
      for(int i=0;i<boughtIds.length;i++){
         if(i<customer.getItems().size()){
@@ -172,6 +174,13 @@ public class PracticalJava{
             matches++;
         }
     }
+    double luckyWinRate=0;
+    try{
+     luckyWinRate=matches/customer.getItems().size();
+    }catch(ArithmeticException ex){
+         luckyWinRate=0;
+    }
+     //Since you're "Luckier" if you bought less items but bought the lucky item anyway
     double beforeLucky=customer.getBalance();
         System.out.print("Two lucky items were chosen. If you match, you get a bonus!");
         switch(matches){
@@ -207,7 +216,7 @@ public class PracticalJava{
         Files.write(filePath,lines);
        }
        Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-theSavedBalance)
-    +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky));
+    +"\nLucky Matches: "+matches+"\nLucky Earnings: "+(customer.getBalance()-beforeLucky)+"\nLucky Win Rate: "+luckyWinRate);
     }catch(IOException ex){
 
     }
