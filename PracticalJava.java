@@ -125,7 +125,19 @@ public class PracticalJava{
             customer.setBalance(customer.getBalance()*multiply);
             System.out.println("You now have $"+customer.getBalance());
             currentStore.earnMoreMoney(currentItem.getPrice());
-            Boolean not_valid=true;
+            
+        }catch(IndexOutOfBoundsException ex){
+            System.out.println("Put in an actual value");
+        } catch(NullPointerException ex){
+            System.out.println(ex);
+        }catch(InputMismatchException ex){
+            System.out.println("Don't even joke.");
+        }catch(RuntimeException ex){
+            System.out.println(ex);
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        Boolean not_valid=true;
             while(not_valid){
             System.out.print("Keep shopping? y/n (lowercase)");
             String sentinel=scanner.next();
@@ -134,17 +146,6 @@ public class PracticalJava{
                 case "n": shopping=false; not_valid=false; break;
                 default: break;
             }
-        }
-        }catch(IndexOutOfBoundsException ex){
-            System.out.print(ex);
-        } catch(NullPointerException ex){
-            System.out.print(ex);
-        }catch(InputMismatchException ex){
-            System.out.print("Don't even joke.");
-        }catch(RuntimeException ex){
-            System.out.print(ex);
-        }catch(Exception ex){
-            System.out.print(ex);
         }
        }while(shopping);
 
@@ -170,7 +171,12 @@ public class PracticalJava{
                 );
        }else{
         //write on linenumber varible
+        //Used Claude to inform us on how to put all lines in an arraylist because file syntax can be tricky
+        ArrayList<String> lines=new ArrayList<>(Files.readAllLines(filePath));
+        lines.set(lineNumber-1, ""+customer.getBalance());
+        Files.write(filePath,lines);
        }
+       Files.writeString(Path.of("statistics.txt"),"Total spent: $"+customer.getTotalSpent()+"\nNet earnings: $"+(customer.getBalance()-200));
     }catch(IOException ex){
 
     }
