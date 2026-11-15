@@ -168,6 +168,8 @@ public class PracticalJava{
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND
                 );
+       }else{
+        //write on linenumber varible
        }
     }catch(IOException ex){
 
